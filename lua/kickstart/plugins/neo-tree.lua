@@ -14,13 +14,17 @@ return {
     { '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
   },
   opts = {
+    source_selector = {
+      winbar = true,
+      statusline = false,
+    },
     filesystem = {
       filtered_items = {
         visible = true,
       },
       follow_current_file = {
         enabled = true,
-        leave_dirs_open = false,
+        leave_dirs_open = true,
       },
       window = {
         mappings = {
