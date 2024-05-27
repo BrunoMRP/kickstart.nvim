@@ -15,13 +15,15 @@ return {
       winbar = true,
       statusline = false,
     },
+    open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
     filesystem = {
+      bind_to_cwd = false,
       filtered_items = {
         visible = true,
       },
       follow_current_file = {
         enabled = true,
-        leave_dirs_open = true,
+        leave_dirs_open = false,
       },
       window = {
         mappings = {

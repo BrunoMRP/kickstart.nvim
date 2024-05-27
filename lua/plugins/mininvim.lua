@@ -58,9 +58,15 @@ return {
       -- f/F/t/T across lines
       require('mini.jump').setup()
 
+      -- Mini diff
+      require('mini.diff').setup()
+
       -- Mini Pairs
       -- Autocompletion for paired chars
-      require('mini.pairs').setup()
+      -- require('mini.pairs').setup()
+
+      -- Mini tabline
+      -- require('mini.tabline').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,

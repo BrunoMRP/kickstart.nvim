@@ -4,7 +4,7 @@ return {
     name = 'catppuccin',
     priority = 1000,
     init = function()
-      vim.cmd.colorscheme 'catppuccin-macchiato'
+      vim.cmd.colorscheme 'catppuccin-frappe'
     end,
     config = function()
       local cat = require 'catppuccin'
