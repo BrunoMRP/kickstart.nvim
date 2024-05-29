@@ -1,0 +1,167 @@
+diff --git a/lua/autocommands.lua b/lua/autocommands.lua
+index 8c13bb2..0d651ee 100644
+--- a/lua/autocommands.lua
++++ b/lua/autocommands.lua
+@@ -19,3 +19,26 @@ vim.api.nvim_create_autocmd('VimEnter', {
+     MiniMap.open()
+   end,
+ })
++
++-- vim.api.nvim_create_autocmd('BufWritePre', {
++--   pattern = '*.go',
++--   callback = function()
++--     local params = vim.lsp.util.make_range_params()
++--     params.context = { only = { 'source.organizeImports' } }
++--     -- buf_request_sync defaults to a 1000ms timeout. Depending on your
++--     -- machine and codebase, you may want longer. Add an additional
++--     -- argument after params if you find that you have to write the file
++--     -- twice for changes to be saved.
++--     -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
++--     local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params)
++--     for cid, res in pairs(result or {}) do
++--       for _, r in pairs(res.result or {}) do
++--         if r.edit then
++--           local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or 'utf-16'
++--           vim.lsp.util.apply_workspace_edit(r.edit, enc)
++--         end
++--       end
++--     end
++--     vim.lsp.buf.format { async = false }
++--   end,
++-- })
+diff --git a/lua/disabled/ale.lua b/lua/disabled/ale.lua
+new file mode 100644
+index 0000000..7834bef
+--- /dev/null
++++ b/lua/disabled/ale.lua
+@@ -0,0 +1,17 @@
++return {
++  {
++    'dense-analysis/ale',
++    config = function()
++      local g = vim.g
++
++      g.ale_disable_lsp = 1
++      g.ale_linters = {
++        lua = { 'lua_language_server' },
++        go = { 'gofmt', 'gofumpt', 'goimports', 'golangci-lint' },
++      }
++      g.ale_fixers = {
++        go = { 'gofmt', 'gofumpt', 'goimports', 'golangci-lint' },
++      }
++    end,
++  },
++}
+diff --git a/lua/plugins/bufferline.lua b/lua/disabled/bufferline.lua
+similarity index 100%
+rename from lua/plugins/bufferline.lua
+rename to lua/disabled/bufferline.lua
+diff --git a/lua/plugins/nightfox.lua b/lua/disabled/nightfox.lua
+similarity index 100%
+rename from lua/plugins/nightfox.lua
+rename to lua/disabled/nightfox.lua
+diff --git a/lua/plugins/diffview.lua b/lua/plugins/diffview.lua
+new file mode 100644
+index 0000000..a379b3c
+--- /dev/null
++++ b/lua/plugins/diffview.lua
+@@ -0,0 +1,3 @@
++return {
++  { 'sindrets/diffview.nvim' },
++}
+diff --git a/lua/plugins/lsp.lua b/lua/plugins/lsp.lua
+index 23d07e2..b191828 100644
+--- a/lua/plugins/lsp.lua
++++ b/lua/plugins/lsp.lua
+@@ -157,7 +157,15 @@ return {
+       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+       local servers = {
+         -- clangd = {},
+-        gopls = {},
++        gopls = {
++          settings = {
++            gopls = {
++              buildFlags = { '-tags=endtoendnbs' },
++              gofumpt = true,
++            },
++          },
++        },
++        golangci_lint_ls = {},
+         pyright = {},
+         -- rust_analyzer = {},
+         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
+diff --git a/lua/plugins/mininvim.lua b/lua/plugins/mininvim.lua
+index d794bfa..f9bd073 100644
+--- a/lua/plugins/mininvim.lua
++++ b/lua/plugins/mininvim.lua
+@@ -63,7 +63,7 @@ return {
+ 
+       -- Mini Pairs
+       -- Autocompletion for paired chars
+-      -- require('mini.pairs').setup()
++      require('mini.pairs').setup()
+ 
+       -- Mini tabline
+       -- require('mini.tabline').setup()
+diff --git a/lua/plugins/neotree.lua b/lua/plugins/neotree.lua
+index 0ce2518..7501980 100644
+--- a/lua/plugins/neotree.lua
++++ b/lua/plugins/neotree.lua
+@@ -11,9 +11,21 @@ return {
+     { '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
+   },
+   opts = {
++    sources = {
++      'filesystem',
++      -- 'buffers',
++      'git_status',
++      'document_symbols',
++    },
+     source_selector = {
+       winbar = true,
+       statusline = false,
++      sources = {
++        { source = 'filesystem' },
++        -- { source = 'buffers' },
++        { source = 'git_status' },
++        { source = 'document_symbols' },
++      },
+     },
+     open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
+     filesystem = {
+diff --git a/lua/plugins/lint.lua b/lua/plugins/nvimlint.lua
+similarity index 96%
+rename from lua/plugins/lint.lua
+rename to lua/plugins/nvimlint.lua
+index a74d065..1ef6778 100644
+--- a/lua/plugins/lint.lua
++++ b/lua/plugins/nvimlint.lua
+@@ -8,6 +8,8 @@ return {
+         go = { 'golangcilint' },
+       }
+ 
++      lint.linters.golangcilint.args = { 'run', '--fix' }
++
+       -- To allow other plugins to add linters to require('lint').linters_by_ft,
+       -- instead set linters_by_ft like this:
+       -- lint.linters_by_ft = lint.linters_by_ft or {}
+diff --git a/lua/plugins/onedark.lua b/lua/plugins/onedark.lua
+new file mode 100644
+index 0000000..a958695
+--- /dev/null
++++ b/lua/plugins/onedark.lua
+@@ -0,0 +1,13 @@
++return {
++  {
++    'navarasu/onedark.nvim',
++    name = 'onedark',
++    priority = 1000,
++    opts = {
++      style = 'dark',
++    },
++    init = function()
++      vim.cmd.colorscheme 'onedark'
++    end,
++  },
++}
+

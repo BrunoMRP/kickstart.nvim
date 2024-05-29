@@ -63,7 +63,7 @@ return {
 
       -- Mini Pairs
       -- Autocompletion for paired chars
-      -- require('mini.pairs').setup()
+      require('mini.pairs').setup()
 
       -- Mini tabline
       -- require('mini.tabline').setup()
