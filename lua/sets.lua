@@ -33,6 +33,9 @@ vim.opt.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.opt.breakindent = true
 
+-- Tabs
+vim.opt.tabstop = 4
+
 -- No Wrap
 vim.opt.wrap = false
 
