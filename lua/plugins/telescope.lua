@@ -55,6 +55,9 @@ return {
         --   },
         -- },
         -- pickers = {}
+        defaults = {
+          file_ignore_patterns = { '.git', 'node_modules', 'vendor' },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),

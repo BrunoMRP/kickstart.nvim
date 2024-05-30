@@ -1,8 +1,8 @@
 return {
   {
     'folke/which-key.nvim',
-    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-    config = function() -- This is the function that runs, AFTER loading
+    event = 'VeryLazy', -- Sets the loading event to 'VimEnter'
+    config = function()
       require('which-key').setup()
 
       -- Document existing key chains

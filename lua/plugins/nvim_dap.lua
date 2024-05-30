@@ -77,12 +77,15 @@ return {
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
     -- Install golang specific config
-    require('dap-go').setup {
+    local dapgo = require 'dap-go'
+    dapgo.setup {
       delve = {
         -- On Windows delve must be run attached or it crashes.
         -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    vim.keymap.set('n', '<F6>', dapgo.debug_test, { desc = 'Debug: Test.' })
   end,
 }

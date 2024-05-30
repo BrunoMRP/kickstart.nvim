@@ -32,4 +32,5 @@ return {
     end,
   },
   { 'nvim-treesitter/nvim-treesitter-context', opts = { max_lines = 4 } },
+  { 'nvim-treesitter/nvim-treesitter-textobjects' },
 }
