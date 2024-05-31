@@ -19,6 +19,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- CTRL + S Save all
+vim.keymap.set('n', '<C-s>', '<Cmd>wa<CR>', { silent = true })
+
 -- Disable arrow keys in normal mode
 vim.keymap.set('n', '<left>', '<cmd>echo "Disabled"<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo "Disabled"<CR>')

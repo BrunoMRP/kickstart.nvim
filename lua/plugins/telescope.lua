@@ -56,7 +56,9 @@ return {
         -- },
         -- pickers = {}
         defaults = {
-          file_ignore_patterns = { '.git', 'node_modules', 'vendor' },
+          file_ignore_patterns = { '.git/', 'node_modules/', 'vendor/' },
+          path_display = { 'smart' },
+          dynamic_preview_title = true,
         },
         extensions = {
           ['ui-select'] = {
